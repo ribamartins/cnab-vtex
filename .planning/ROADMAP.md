@@ -59,11 +59,11 @@ Plans:
   2. After import preview is accepted, the system queries VTEX MasterData for each referenceId and displays enrichment results showing success or failure per row (not found, timeout, missing pixKey)
   3. A consolidated validation report shows all rows with errors (missing field, invalid CPF/CNPJ, undetectable key type) and all rows that are ready, allowing the user to decide whether to proceed or abort
   4. An Excel file with invalid structure (missing required column) is rejected before VTEX queries begin, with a human-readable error naming the missing column
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Excel parser (openpyxl), import validation, and preview screen
-- [ ] 03-02: VTEX enrichment service (httpx, error handling, throttle) and consolidated validation report screen
+- [ ] 03-01-PLAN.md — Excel parser module (openpyxl) and VTEX enrichment service (httpx) with test suites
+- [ ] 03-02-PLAN.md — ImportPreviewDialog, ValidationReportDialog, and MainWindow integration
 
 ### Phase 4: Desktop Application
 **Goal**: The finance team can operate the full payment workflow end-to-end from a desktop application: import, generate, download, track, and audit CNAB files
