@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: CNAB 240 builder — all six record types, 240-byte enforcement, LATIN-1 encoding
+- [x] 01-01: CNAB 240 builder — all six record types, 240-byte enforcement, LATIN-1 encoding
 - [ ] 01-02: PIX key detector and pre-generation validator with unit test suite
 
 ### Phase 2: Foundation
@@ -89,7 +89,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. CNAB Engine | 0/2 | Not started | - |
+| 1. CNAB Engine | 1/2 | In Progress|  |
 | 2. Foundation | 0/2 | Not started | - |
 | 3. Data Pipeline | 0/2 | Not started | - |
 | 4. Desktop Application | 0/2 | Not started | - |

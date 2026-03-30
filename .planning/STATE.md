@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 01-cnab-engine/01-01-PLAN.md
+last_updated: "2026-03-30T20:43:50.206Z"
+last_activity: 2026-03-30
+progress:
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 2
+  completed_plans: 1
+  percent: 0
+---
+
 # Project State
 
 ## Project Reference
@@ -5,20 +21,21 @@
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** Gerar arquivos CNAB PIX válidos e transmiti-los ao Itaú sem erros — cada pagamento deve chegar ao beneficiário correto com o valor correto.
-**Current focus:** Phase 1 — CNAB Engine (ready to plan)
+**Current focus:** Phase 01 — cnab-engine
 
 ## Current Position
 
-Phase: 1 of 4 (CNAB Engine)
-Plan: 0 of 2 in current phase
-Status: Ready to plan
-Last activity: 2026-03-30 — Roadmap created, all 33 v1 requirements mapped across 4 phases
+Phase: 01 (cnab-engine) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-30
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: —
 - Total execution time: 0 hours
@@ -30,10 +47,12 @@ Progress: [░░░░░░░░░░] 0%
 | - | - | - | - |
 
 **Recent Trend:**
+
 - Last 5 plans: —
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-cnab-engine P01 | 245 | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -45,6 +64,10 @@ Recent decisions affecting current work:
 - [Roadmap]: CNAB engine built first as pure logic (no UI, no DB) — highest rejection risk, must be byte-exact before integration work begins
 - [Roadmap]: Mock bank transmitter used throughout until Itaú credentials are available (v2 real transmitter)
 - [Roadmap]: Return file processing (RETN-01..04) deferred to v2 — depends on external party (Itaú return file samples)
+- [Phase 01-cnab-engine]: Segmento A AGENCIA/CONTA FAVORECIDO = 20 zeros for key-based PIX (Nota 11 optional)
+- [Phase 01-cnab-engine]: Segmento B INFO ENTRE USUARIOS = 65 zeros (numeric picture 9(65))
+- [Phase 01-cnab-engine]: PaymentInput.value typed as Decimal — float prohibited per CNAB-08
+- [Phase 01-cnab-engine]: build_cnab encodes LATIN-1 with LF-only separators via join/encode pattern (no CRLF)
 
 ### Pending Todos
 
@@ -58,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30
-Stopped at: Roadmap created and written to disk; REQUIREMENTS.md traceability updated
+Last session: 2026-03-30T20:43:50.204Z
+Stopped at: Completed 01-cnab-engine/01-01-PLAN.md
 Resume file: None

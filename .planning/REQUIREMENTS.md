@@ -38,14 +38,14 @@
 
 ### CNAB Generation
 
-- [ ] **CNAB-01**: System generates Header de Arquivo (type 0) with company data, bank code 341, layout version 080
-- [ ] **CNAB-02**: System generates Header de Lote (type 1) with operation C, payment type per Nota 4, form 45 (PIX Transferência), layout 040
-- [ ] **CNAB-03**: System generates Segmento A for each payment with câmara 009 (PIX/SPI), identification type 04 (Chave Pix), payment value with implicit decimal
-- [ ] **CNAB-04**: System generates Segmento B PIX (mandatory) for each payment with PIX key type code and key value (up to 100 chars)
-- [ ] **CNAB-05**: System generates Trailer de Lote (type 5) with correct record count and value sum
-- [ ] **CNAB-06**: System generates Trailer de Arquivo (type 9) with lot count and total record count
-- [ ] **CNAB-07**: Every record is exactly 240 bytes encoded in LATIN-1, with numeric fields zero-padded left and alpha fields space-padded right
-- [ ] **CNAB-08**: System uses Decimal arithmetic (never float) for all payment values
+- [x] **CNAB-01**: System generates Header de Arquivo (type 0) with company data, bank code 341, layout version 080
+- [x] **CNAB-02**: System generates Header de Lote (type 1) with operation C, payment type per Nota 4, form 45 (PIX Transferência), layout 040
+- [x] **CNAB-03**: System generates Segmento A for each payment with câmara 009 (PIX/SPI), identification type 04 (Chave Pix), payment value with implicit decimal
+- [x] **CNAB-04**: System generates Segmento B PIX (mandatory) for each payment with PIX key type code and key value (up to 100 chars)
+- [x] **CNAB-05**: System generates Trailer de Lote (type 5) with correct record count and value sum
+- [x] **CNAB-06**: System generates Trailer de Arquivo (type 9) with lot count and total record count
+- [x] **CNAB-07**: Every record is exactly 240 bytes encoded in LATIN-1, with numeric fields zero-padded left and alpha fields space-padded right
+- [x] **CNAB-08**: System uses Decimal arithmetic (never float) for all payment values
 
 ### File Management
 
@@ -110,14 +110,14 @@
 | VALD-02 | Phase 1 | Pending |
 | VALD-03 | Phase 1 | Pending |
 | VALD-04 | Phase 1 | Pending |
-| CNAB-01 | Phase 1 | Pending |
-| CNAB-02 | Phase 1 | Pending |
-| CNAB-03 | Phase 1 | Pending |
-| CNAB-04 | Phase 1 | Pending |
-| CNAB-05 | Phase 1 | Pending |
-| CNAB-06 | Phase 1 | Pending |
-| CNAB-07 | Phase 1 | Pending |
-| CNAB-08 | Phase 1 | Pending |
+| CNAB-01 | Phase 1 | Complete |
+| CNAB-02 | Phase 1 | Complete |
+| CNAB-03 | Phase 1 | Complete |
+| CNAB-04 | Phase 1 | Complete |
+| CNAB-05 | Phase 1 | Complete |
+| CNAB-06 | Phase 1 | Complete |
+| CNAB-07 | Phase 1 | Complete |
+| CNAB-08 | Phase 1 | Complete |
 | FILE-01 | Phase 4 | Pending |
 | FILE-02 | Phase 4 | Pending |
 | FILE-03 | Phase 4 | Pending |
