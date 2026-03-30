@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 planned
-last_updated: "2026-03-30T21:53:26.022Z"
-last_activity: 2026-03-30 -- Phase 02 execution started
+stopped_at: Completed 02-foundation/02-01-PLAN.md
+last_updated: "2026-03-30T22:02:34.642Z"
+last_activity: 2026-03-30
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 4
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 ## Current Position
 
 Phase: 02 (foundation) — EXECUTING
-Plan: 1 of 2
-Status: Executing Phase 02
-Last activity: 2026-03-30 -- Phase 02 execution started
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-30
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01-cnab-engine P01 | 245 | 2 tasks | 10 files |
 | Phase 01-cnab-engine P02 | 15 | 2 tasks | 4 files |
+| Phase 02-foundation P01 | 7 | 2 tasks | 14 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,8 @@ Recent decisions affecting current work:
 - [Phase 01-cnab-engine]: build_cnab encodes LATIN-1 with LF-only separators via join/encode pattern (no CRLF)
 - [Phase 01-cnab-engine]: PIX key detection uses UUID-first order to prevent ambiguity with all-digit UUIDs
 - [Phase 01-cnab-engine]: validate_payments collects all errors before returning — user sees ALL issues at once
+- [Phase 02-foundation]: SQLAlchemy upgraded to 2.0.48 (Python 3.14 Union type compatibility — 2.0.36 breaks with Python 3.14)
+- [Phase 02-foundation]: Optional[T] used in Mapped columns instead of T|None for SQLAlchemy annotations
 
 ### Pending Todos
 
@@ -84,6 +87,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T21:45:04.446Z
-Stopped at: Phase 2 planned
-Resume file: .planning/phases/02-foundation/02-01-PLAN.md
+Last session: 2026-03-30T22:02:34.639Z
+Stopped at: Completed 02-foundation/02-01-PLAN.md
+Resume file: None

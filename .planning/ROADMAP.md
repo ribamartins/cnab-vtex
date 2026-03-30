@@ -47,7 +47,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Database models (5 tables), Alembic baseline, Fernet encryption, auth service with user CRUD
+- [x] 02-01-PLAN.md — Database models (5 tables), Alembic baseline, Fernet encryption, auth service with user CRUD
 - [ ] 02-02-PLAN.md — PySide6 login dialog, first-run setup wizard, settings window (company/users/credentials tabs)
 
 ### Phase 3: Data Pipeline
@@ -90,6 +90,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. CNAB Engine | 2/2 | Complete |  |
-| 2. Foundation | 0/2 | Planning | - |
+| 2. Foundation | 1/2 | In Progress|  |
 | 3. Data Pipeline | 0/2 | Not started | - |
 | 4. Desktop Application | 0/2 | Not started | - |
