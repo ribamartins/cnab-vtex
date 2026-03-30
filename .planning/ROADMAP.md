@@ -29,7 +29,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. PIX key type detector correctly classifies all four types (CPF/CNPJ → 03, phone → 01, email → 02, UUID → 04) from raw VTEX pixKey strings with no human input
   4. Validator returns per-row errors for missing pixKey, missing document, zero value, and invalid CPF/CNPJ check digits before any CNAB generation is attempted
   5. A pytest run with known-good inputs asserts exact byte sequences for Segmento A + Segmento B pairs, and Trailer counts match 2N+2 formula for N payments
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 01-01: CNAB 240 builder — all six record types, 240-byte enforcement, LATIN-1 encoding
