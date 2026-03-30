@@ -27,6 +27,9 @@ tech-stack:
     - QTabWidget with unsaved changes guard on tab switch and close
     - PasswordEchoOnEdit for credential fields with 5-second show timer
     - QPushButton objectName="primary" for accent-color styling via QSS
+    - QPushButton objectName="icon_action" for borderless icon buttons in tables
+    - QPainter-drawn icons via make_icon() factory — DPI-independent, zero dependencies
+    - Form population before signal connection to avoid false dirty-state
     - Unicode escape sequences for PT-BR copy in Python source (e.g., \u00e1 for a-acute)
 
 key-files:
@@ -68,7 +71,7 @@ completed: 2026-03-30
 - **Duration:** 6 min
 - **Started:** 2026-03-30T22:03:36Z
 - **Completed:** 2026-03-30T22:09:10Z
-- **Tasks:** 1 of 2 (Task 2 is checkpoint:human-verify — awaiting verification)
+- **Tasks:** 2 of 2 (verified by user)
 - **Files modified:** 8
 
 ## Accomplishments
@@ -81,8 +84,9 @@ completed: 2026-03-30
 ## Task Commits
 
 1. **Task 1: PySide6 screens — Login, Setup Wizard, Settings Window, and Main Window** - `3f1e877` (feat)
+2. **Task 2: Human verification + fixes** - `e317f03` (fix: label visibility, unsaved-changes guard, icon buttons)
 
-**Plan metadata:** (pending — after checkpoint verification)
+**Plan metadata:** `119fdb1` (docs: complete plan)
 
 ## Files Created/Modified
 
@@ -114,23 +118,43 @@ completed: 2026-03-30
 
 ---
 
-**Total deviations:** 1 auto-fixed (1 blocking)
-**Impact on plan:** Required fix — PySide6 6.8.1 cannot run on Python 3.14. The upgrade to 6.10.1 is backwards-compatible for the PySide6 APIs used in this plan.
+**2. [Fix] QSS label invisibility on Windows**
+- **Found during:** Human verification
+- **Issue:** QFormLayout labels not visible — QSS set background but no explicit text color
+- **Fix:** Added `color: #212121` to QWidget and QLabel QSS rules
+- **Files modified:** src/ui/styles.py
+- **Committed in:** e317f03
+
+**3. [Fix] False unsaved-changes guard on tab switch**
+- **Found during:** Human verification
+- **Issue:** _populate_company_form() triggered textChanged signals, marking form dirty on load
+- **Fix:** Swapped order: populate form before connecting signals in constructor
+- **Files modified:** src/ui/settings_window.py
+- **Committed in:** e317f03
+
+**4. [Fix] Action buttons clipped in users table**
+- **Found during:** Human verification
+- **Issue:** Text buttons ("Editar", "Desativar") too wide for table cell
+- **Fix:** Replaced with QPainter-drawn icon buttons (pencil, X, checkmark) with tooltips
+- **Files modified:** src/ui/styles.py, src/ui/settings_window.py
+- **Committed in:** e317f03
+
+---
+
+**Total deviations:** 4 (1 blocking auto-fixed + 3 human-verification fixes)
+**Impact on plan:** All fixes improved correctness and usability. No scope creep.
 
 ## Issues Encountered
 
-- PySide6 was not installed in the environment. Installed as part of the blocking fix above.
-
-## Known Stubs
-
-None — all form fields are wired to DB models (Company) and auth service (User). No placeholder data.
+- PySide6 6.8.1 incompatible with Python 3.14, upgraded to 6.10.1
+- Three UI issues found during human verification — all fixed in checkpoint
 
 ## Next Phase Readiness
 
-- All three Phase 2 UI screens are complete and wired to Phase 01 data layer
-- Application can be launched with `PYTHONPATH=src python src/main.py`
-- Ready for Task 2 human verification: first-run wizard, login, settings tabs, session persistence
-- Phase 3 (VTEX integration) can use the VTEX credentials stored and encrypted in Phase 2 settings
+- All Phase 2 UI screens verified and approved by user
+- Application runs end-to-end: first-run wizard → login → main window → settings
+- VTEX credentials encrypted and stored, ready for Phase 3 integration
+- Auth and session persistence fully functional
 
 ---
 *Phase: 02-foundation*
