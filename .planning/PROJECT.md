@@ -12,7 +12,9 @@ Gerar arquivos CNAB PIX válidos e transmiti-los ao Itaú sem erros — cada pag
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Detecção automática do tipo de chave PIX (CPF/CNPJ, telefone, email, chave aleatória) — Validated in Phase 1: CNAB Engine
+- [x] Geração de arquivo CNAB 240 SISPAG Itaú para PIX Transferência (Header Arquivo, Header Lote, Segmento A + Segmento B PIX, Trailer Lote, Trailer Arquivo) — Validated in Phase 1: CNAB Engine
+- [x] Validação prévia dos dados do beneficiário e chave PIX antes de gerar o CNAB — Validated in Phase 1: CNAB Engine
 
 ### Active
 
