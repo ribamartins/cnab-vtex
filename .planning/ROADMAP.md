@@ -44,11 +44,11 @@ Plans:
   2. An admin can create, edit, and deactivate user accounts without editing any file or database directly
   3. The application remembers the logged-in user across restarts (session persistence)
   4. An admin can enter and save company CNPJ, agency, account, DAC, VTEX AppKey, and AppToken; the values survive application restart and are never stored in plaintext source code
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: SQLite schema (companies, users, cnab_files, payments, audit_logs), Alembic baseline migration, secure settings storage
-- [ ] 02-02: Authentication screens and user management (PySide6 login dialog, session persistence, admin user CRUD)
+- [ ] 02-01-PLAN.md — Database models (5 tables), Alembic baseline, Fernet encryption, auth service with user CRUD
+- [ ] 02-02-PLAN.md — PySide6 login dialog, first-run setup wizard, settings window (company/users/credentials tabs)
 
 ### Phase 3: Data Pipeline
 **Goal**: Users can import an Excel file, retrieve beneficiary PIX data from VTEX, and see a clear per-row validation report before deciding whether to generate a CNAB file
@@ -70,7 +70,7 @@ Plans:
 **Depends on**: Phase 3
 **Requirements**: FILE-01, FILE-02, FILE-03, FILE-04, DASH-01, DASH-02, DASH-03, AUDT-01, AUDT-02
 **Success Criteria** (what must be TRUE):
-  1. After validation passes, user can generate a CNAB file; the file is saved to the database with status "Criado" and the user can immediately download it as a .txt file for manual upload to Itaú Empresas
+  1. After validation passes, user can generate a CNAB file; the file is saved to the database with status "Criado" and the user can immediately download it as a .txt file for manual upload to Itau Empresas
   2. User can trigger mock transmission; status moves to "Transmitido" on success or "Erro" on failure, with error details saved and visible in the file record
   3. Dashboard shows all generated CNAB files with status, date, total value, and row count; user can filter by status and date range without writing any query
   4. User can drill into any file record and see individual payment rows with their status
@@ -78,18 +78,18 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 04-01: File generation flow (PySide6 pipeline wiring: Validator → CNAB Builder → File Store → download), file management, and mock transmission
+- [ ] 04-01: File generation flow (PySide6 pipeline wiring: Validator -> CNAB Builder -> File Store -> download), file management, and mock transmission
 - [ ] 04-02: Dashboard (file list, filters, detail view) and audit log viewer
 **UI hint**: yes
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. CNAB Engine | 1/2 | In Progress|  |
-| 2. Foundation | 0/2 | Not started | - |
+| 1. CNAB Engine | 2/2 | Complete |  |
+| 2. Foundation | 0/2 | Planning | - |
 | 3. Data Pipeline | 0/2 | Not started | - |
 | 4. Desktop Application | 0/2 | Not started | - |
