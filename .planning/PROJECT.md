@@ -2,7 +2,7 @@
 
 ## What This Is
 
-Sistema web para criação e transmissão de arquivos bancários CNAB 240 (SISPAG Itaú) para pagamentos PIX. O usuário importa uma planilha Excel com beneficiários, o sistema consulta a API VTEX para obter dados completos, gera o arquivo CNAB no formato exigido pelo Itaú, e transmite via API bancária. Destinado à equipe financeira da PrettyNew.
+Aplicação desktop standalone para criação e transmissão de arquivos bancários CNAB 240 (SISPAG Itaú) para pagamentos PIX. O usuário importa uma planilha Excel com beneficiários, o sistema consulta a API VTEX para obter dados completos, gera o arquivo CNAB no formato exigido pelo Itaú, e transmite via API bancária. Destinado à equipe financeira da PrettyNew.
 
 ## Core Value
 
@@ -35,7 +35,7 @@ Gerar arquivos CNAB PIX válidos e transmiti-los ao Itaú sem erros — cada pag
 - Pagamento via boleto/DOC/TED — apenas PIX Transferência
 - Geração de arquivo retorno (apenas leitura/processamento do retorno recebido do Itaú)
 - Multi-empresa / multi-banco — apenas Itaú, uma empresa por instalação
-- App mobile — apenas web desktop
+- App mobile ou web — apenas desktop standalone
 
 ## Context
 
@@ -47,9 +47,9 @@ Gerar arquivos CNAB PIX válidos e transmiti-los ao Itaú sem erros — cada pag
 
 ## Constraints
 
-- **Stack**: Python + Flask — backend e frontend (templates ou SPA leve)
-- **Banco**: SQLite ou PostgreSQL para metadados e status dos arquivos
-- **Segurança**: Credenciais VTEX e Itaú em variáveis de ambiente, nunca no código
+- **Stack**: Python + PySide6 (Qt) — aplicação desktop standalone
+- **Banco**: SQLite local para metadados e status dos arquivos
+- **Segurança**: Credenciais VTEX e Itaú em arquivo de configuração local criptografado ou protegido, nunca hardcoded
 - **CNAB**: Cada registro exatamente 240 bytes, encoding conforme padrão FEBRABAN, campos numéricos com zeros à esquerda, alfanuméricos com espaços à direita
 - **Usuários**: Equipe pequena (1-5 pessoas), autenticação local simples
 
@@ -57,7 +57,8 @@ Gerar arquivos CNAB PIX válidos e transmiti-los ao Itaú sem erros — cada pag
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Python + Flask | Simplicidade, boa manipulação de strings/bytes para CNAB, equipe familiarizada | — Pending |
+| Python + PySide6 (Qt) desktop | Aplicação standalone, sem necessidade de servidor web, distribuição simples | — Pending |
+| SQLite local | BD embarcado, zero configuração, suficiente para equipe pequena | — Pending |
 | Chave PIX como modelo padrão | Campo `pixKey` da VTEX pode conter qualquer tipo de chave, detecção automática do tipo | — Pending |
 | Banco de dados para controle de arquivos | Mais robusto que filesystem puro, facilita consultas, dashboard e auditoria | — Pending |
 | API Itaú com mock inicial | Sem credenciais disponíveis, começar com stub para não bloquear desenvolvimento | — Pending |
@@ -81,4 +82,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after initialization*
+*Last updated: 2026-03-30 after stack change (Flask → PySide6 desktop)*
