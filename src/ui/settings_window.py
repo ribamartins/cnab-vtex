@@ -18,7 +18,8 @@ from PySide6.QtGui import QFont, QColor
 
 from ui.styles import (
     COLOR_DESTRUCTIVE, COLOR_ACTIVE, COLOR_INACTIVE,
-    COLOR_PANEL, SPACING_MD, SPACING_SM, SPACING_LG
+    COLOR_PANEL, SPACING_MD, SPACING_SM, SPACING_LG,
+    icon_edit, icon_deactivate, icon_reactivate
 )
 
 # Brazilian state abbreviations
@@ -230,8 +231,8 @@ class SettingsWindow(QDialog):
 
         self._load_company()
         self._build_ui()
-        self._connect_signals()
         self._populate_company_form()
+        self._connect_signals()
 
     def _load_company(self):
         """Load company record from DB."""
@@ -527,37 +528,47 @@ class SettingsWindow(QDialog):
                 status_item.setForeground(QColor(COLOR_INACTIVE))
             self._users_table.setItem(row, 3, status_item)
 
-            # Actions cell
+            # Actions cell — icon buttons with tooltips
             actions_widget = QWidget()
             actions_layout = QHBoxLayout(actions_widget)
             actions_layout.setContentsMargins(4, 2, 4, 2)
-            actions_layout.setSpacing(4)
+            actions_layout.setSpacing(2)
 
-            # Edit button
-            edit_btn = QPushButton("Editar")
-            edit_btn.setFixedHeight(28)
-            edit_btn.setProperty("user_id", user.id)
+            # Edit button (pencil icon)
+            edit_btn = QPushButton()
+            edit_btn.setIcon(icon_edit())
+            edit_btn.setFixedSize(30, 30)
+            edit_btn.setObjectName("icon_action")
+            edit_btn.setToolTip("Editar usu\u00e1rio")
+            edit_btn.setCursor(Qt.CursorShape.PointingHandCursor)
             edit_btn.clicked.connect(lambda checked, uid=user.id: self._on_edit_user(uid))
             actions_layout.addWidget(edit_btn)
 
             # Deactivate/Reactivate button
             if user.is_active:
-                deact_btn = QPushButton("Desativar")
-                deact_btn.setObjectName("destructive")
-                deact_btn.setFixedHeight(28)
+                deact_btn = QPushButton()
+                deact_btn.setIcon(icon_deactivate())
+                deact_btn.setFixedSize(30, 30)
+                deact_btn.setObjectName("icon_action")
+                deact_btn.setCursor(Qt.CursorShape.PointingHandCursor)
                 is_self = (user.id == self._current_user.id)
                 if is_self:
                     deact_btn.setEnabled(False)
-                    deact_btn.setToolTip("N\u00e3o \u00e9 poss\u00edvel desativar sua pr\u00f3pria conta.")
+                    deact_btn.setToolTip("N\u00e3o \u00e9 poss\u00edvel desativar sua pr\u00f3pria conta")
                 else:
+                    deact_btn.setToolTip("Desativar usu\u00e1rio")
                     deact_btn.clicked.connect(
                         lambda checked, uid=user.id, name=user.display_name:
                         self._on_deactivate_user(uid, name)
                     )
                 actions_layout.addWidget(deact_btn)
             else:
-                react_btn = QPushButton("Reativar")
-                react_btn.setFixedHeight(28)
+                react_btn = QPushButton()
+                react_btn.setIcon(icon_reactivate())
+                react_btn.setFixedSize(30, 30)
+                react_btn.setObjectName("icon_action")
+                react_btn.setToolTip("Reativar usu\u00e1rio")
+                react_btn.setCursor(Qt.CursorShape.PointingHandCursor)
                 react_btn.clicked.connect(
                     lambda checked, uid=user.id: self._on_reactivate_user(uid)
                 )

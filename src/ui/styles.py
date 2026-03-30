@@ -3,6 +3,8 @@
 Colors follow 60/30/10 rule per UI-SPEC Color section.
 Spacing follows multiples-of-4 scale per UI-SPEC Spacing Scale section.
 """
+from PySide6.QtGui import QIcon, QPixmap, QPainter, QPen, QColor, QPainterPath
+from PySide6.QtCore import Qt, QRectF, QPointF
 
 # Colors per UI-SPEC Color section
 COLOR_BG = "#F5F5F5"           # Dominant 60% — dialog/window background
@@ -39,6 +41,7 @@ def get_app_stylesheet() -> str:
     }}
     QWidget {{
         background-color: {COLOR_BG};
+        color: #212121;
         font-size: 13px;
     }}
     QGroupBox {{
@@ -161,9 +164,70 @@ def get_app_stylesheet() -> str:
     }}
     QLabel {{
         background-color: transparent;
+        color: #212121;
         font-size: 13px;
     }}
     QMessageBox {{
         background-color: {COLOR_BG};
     }}
+    QPushButton#icon_action {{
+        border: none;
+        background-color: transparent;
+        padding: 2px;
+        border-radius: 3px;
+    }}
+    QPushButton#icon_action:hover {{
+        background-color: #E0E0E0;
+    }}
+    QPushButton#icon_action:disabled {{
+        background-color: transparent;
+    }}
     """
+
+
+def make_icon(draw_func, size: int = 20, color: str = "#616161") -> QIcon:
+    """Create a QIcon by drawing on a QPixmap with the given function and color."""
+    pixmap = QPixmap(size, size)
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    pen = QPen(QColor(color))
+    pen.setWidthF(1.8)
+    pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+    pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+    painter.setPen(pen)
+    draw_func(painter, size)
+    painter.end()
+    return QIcon(pixmap)
+
+
+def icon_edit(size: int = 20) -> QIcon:
+    """Pencil icon for edit actions."""
+    def draw(p: QPainter, s: int):
+        m = s * 0.2  # margin
+        # Pencil body (diagonal line with nib)
+        p.drawLine(QPointF(s - m, m), QPointF(m + 2, s - m - 2))
+        # Pencil tip
+        p.drawLine(QPointF(m + 2, s - m - 2), QPointF(m, s - m))
+        p.drawLine(QPointF(m, s - m), QPointF(m + 4, s - m - 1))
+        # Small editing line at base
+        p.drawLine(QPointF(m + 1, s - m), QPointF(s * 0.55, s - m))
+    return make_icon(draw, size, COLOR_ACCENT)
+
+
+def icon_deactivate(size: int = 20) -> QIcon:
+    """X icon for deactivate actions."""
+    def draw(p: QPainter, s: int):
+        m = s * 0.25
+        p.drawLine(QPointF(m, m), QPointF(s - m, s - m))
+        p.drawLine(QPointF(s - m, m), QPointF(m, s - m))
+    return make_icon(draw, size, COLOR_DESTRUCTIVE)
+
+
+def icon_reactivate(size: int = 20) -> QIcon:
+    """Checkmark icon for reactivate actions."""
+    def draw(p: QPainter, s: int):
+        m = s * 0.2
+        p.drawLine(QPointF(m, s * 0.5), QPointF(s * 0.4, s - m))
+        p.drawLine(QPointF(s * 0.4, s - m), QPointF(s - m, m))
+    return make_icon(draw, size, COLOR_ACTIVE)
