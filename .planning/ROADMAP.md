@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01: CNAB 240 builder — all six record types, 240-byte enforcement, LATIN-1 encoding
-- [ ] 01-02: PIX key detector and pre-generation validator with unit test suite
+- [x] 01-02: PIX key detector and pre-generation validator with unit test suite
 
 ### Phase 2: Foundation
 **Goal**: Users can authenticate into the application and admins can configure the company data required by every CNAB header

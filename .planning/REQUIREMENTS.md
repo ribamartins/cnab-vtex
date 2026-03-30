@@ -31,10 +31,10 @@
 
 ### Validation
 
-- [ ] **VALD-01**: System detects PIX key type automatically (CPF/CNPJ, phone, email, random key) from raw pixKey string
-- [ ] **VALD-02**: System validates CPF/CNPJ check digits before CNAB generation
-- [ ] **VALD-03**: System validates all mandatory CNAB fields are present (pixKey, document, name, value) and reports missing data per row
-- [ ] **VALD-04**: System presents a consolidated validation report with all errors/warnings before allowing CNAB generation
+- [x] **VALD-01**: System detects PIX key type automatically (CPF/CNPJ, phone, email, random key) from raw pixKey string
+- [x] **VALD-02**: System validates CPF/CNPJ check digits before CNAB generation
+- [x] **VALD-03**: System validates all mandatory CNAB fields are present (pixKey, document, name, value) and reports missing data per row
+- [x] **VALD-04**: System presents a consolidated validation report with all errors/warnings before allowing CNAB generation
 
 ### CNAB Generation
 
@@ -106,10 +106,10 @@
 | VTEX-01 | Phase 3 | Pending |
 | VTEX-02 | Phase 3 | Pending |
 | VTEX-03 | Phase 3 | Pending |
-| VALD-01 | Phase 1 | Pending |
-| VALD-02 | Phase 1 | Pending |
-| VALD-03 | Phase 1 | Pending |
-| VALD-04 | Phase 1 | Pending |
+| VALD-01 | Phase 1 | Complete |
+| VALD-02 | Phase 1 | Complete |
+| VALD-03 | Phase 1 | Complete |
+| VALD-04 | Phase 1 | Complete |
 | CNAB-01 | Phase 1 | Complete |
 | CNAB-02 | Phase 1 | Complete |
 | CNAB-03 | Phase 1 | Complete |
