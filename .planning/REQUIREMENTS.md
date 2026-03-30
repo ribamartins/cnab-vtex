@@ -8,13 +8,13 @@
 ### Authentication
 
 - [x] **AUTH-01**: User can log in with username and password (local authentication)
-- [ ] **AUTH-02**: Admin can create, edit, and deactivate user accounts
+- [x] **AUTH-02**: Admin can create, edit, and deactivate user accounts
 - [x] **AUTH-03**: User session persists across application restarts (remember me)
 
 ### Settings
 
-- [ ] **CONF-01**: Admin can configure company data (CNPJ, agency, account, DAC Itaú)
-- [ ] **CONF-02**: Admin can configure VTEX API credentials (AppKey, AppToken)
+- [x] **CONF-01**: Admin can configure company data (CNPJ, agency, account, DAC Itaú)
+- [x] **CONF-02**: Admin can configure VTEX API credentials (AppKey, AppToken)
 - [x] **CONF-03**: Settings are stored securely in the local database
 
 ### Excel Import
@@ -95,10 +95,10 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | AUTH-01 | Phase 2 | Complete |
-| AUTH-02 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Complete |
 | AUTH-03 | Phase 2 | Complete |
-| CONF-01 | Phase 2 | Pending |
-| CONF-02 | Phase 2 | Pending |
+| CONF-01 | Phase 2 | Complete |
+| CONF-02 | Phase 2 | Complete |
 | CONF-03 | Phase 2 | Complete |
 | IMPT-01 | Phase 3 | Pending |
 | IMPT-02 | Phase 3 | Pending |

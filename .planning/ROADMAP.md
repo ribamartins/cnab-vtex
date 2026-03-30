@@ -13,7 +13,7 @@ A four-phase journey that builds the riskiest parts first. Phase 1 hardens the C
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: CNAB Engine** - Pure CNAB 240 byte-exact generation and validation library — no UI, no database
-- [ ] **Phase 2: Foundation** - SQLite schema, authentication, and settings screen — prerequisites for file generation
+- [x] **Phase 2: Foundation** - SQLite schema, authentication, and settings screen — prerequisites for file generation (completed 2026-03-30)
 - [ ] **Phase 3: Data Pipeline** - Excel import, VTEX enrichment, and pre-generation validation with per-row error reporting
 - [ ] **Phase 4: Desktop Application** - PySide6 GUI connecting all services: login, upload flow, file management, dashboard, and audit log
 
@@ -48,7 +48,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Database models (5 tables), Alembic baseline, Fernet encryption, auth service with user CRUD
-- [ ] 02-02-PLAN.md — PySide6 login dialog, first-run setup wizard, settings window (company/users/credentials tabs)
+- [x] 02-02-PLAN.md — PySide6 login dialog, first-run setup wizard, settings window (company/users/credentials tabs)
 
 ### Phase 3: Data Pipeline
 **Goal**: Users can import an Excel file, retrieve beneficiary PIX data from VTEX, and see a clear per-row validation report before deciding whether to generate a CNAB file
@@ -90,6 +90,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. CNAB Engine | 2/2 | Complete |  |
-| 2. Foundation | 1/2 | In Progress|  |
+| 2. Foundation | 2/2 | Complete   | 2026-03-30 |
 | 3. Data Pipeline | 0/2 | Not started | - |
 | 4. Desktop Application | 0/2 | Not started | - |
