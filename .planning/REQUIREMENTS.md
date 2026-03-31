@@ -21,13 +21,13 @@
 
 - [x] **IMPT-01**: User can import Excel file (.xlsx) with columns: Nome do Beneficiário, Código (referenceId), Valor
 - [x] **IMPT-02**: System validates Excel structure before processing (required columns, data types)
-- [ ] **IMPT-03**: System displays import preview with row count and total value before proceeding
+- [x] **IMPT-03**: System displays import preview with row count and total value before proceeding
 
 ### VTEX Integration
 
 - [x] **VTEX-01**: System queries VTEX MasterData API for each referenceId and retrieves beneficiary data (pixKey, document, name, email, phone)
 - [x] **VTEX-02**: System handles VTEX API errors gracefully (timeout, not found, rate limit) with per-row error reporting
-- [ ] **VTEX-03**: System displays enrichment results with success/failure status per row before CNAB generation
+- [x] **VTEX-03**: System displays enrichment results with success/failure status per row before CNAB generation
 
 ### Validation
 
@@ -102,10 +102,10 @@
 | CONF-03 | Phase 2 | Complete |
 | IMPT-01 | Phase 3 | Complete |
 | IMPT-02 | Phase 3 | Complete |
-| IMPT-03 | Phase 3 | Pending |
+| IMPT-03 | Phase 3 | Complete |
 | VTEX-01 | Phase 3 | Complete |
 | VTEX-02 | Phase 3 | Complete |
-| VTEX-03 | Phase 3 | Pending |
+| VTEX-03 | Phase 3 | Complete |
 | VALD-01 | Phase 1 | Complete |
 | VALD-02 | Phase 1 | Complete |
 | VALD-03 | Phase 1 | Complete |

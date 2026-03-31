@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-data-pipeline 03-01-PLAN.md
-last_updated: "2026-03-31T09:30:37.597Z"
-last_activity: 2026-03-31 -- Phase 03 Wave 1 complete
+stopped_at: "Checkpoint: 03-02 Task 3 human-verify (Tasks 1-2 complete)"
+last_updated: "2026-03-31T09:36:45.118Z"
+last_activity: 2026-03-31
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
   percent: 0
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 ## Current Position
 
 Phase: 03 (data-pipeline) — EXECUTING
-Plan: 1 of 2
-Status: Executing Phase 03
-Last activity: 2026-03-31 -- Phase 03 execution started
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-31
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-foundation P01 | 7 | 2 tasks | 14 files |
 | Phase 02-foundation P02 | 6 | 1 tasks | 8 files |
 | Phase 03-data-pipeline P01 | 3 | 2 tasks | 6 files |
+| Phase 03-data-pipeline P02 | 4 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,8 @@ Recent decisions affecting current work:
 - [Phase 02-foundation]: Screen-as-QDialog pattern: all screens receive session as constructor param for testability
 - [Phase 03-data-pipeline]: Excel column names case-sensitive and exact: Nome do Beneficiario, Codigo, Valor (D-01)
 - [Phase 03-data-pipeline]: VTEX throttle 300ms per row (D-08 range 200-500ms); rows param duck-typed to avoid circular import between app.excel_parser and vtex.enrichment
+- [Phase 03-data-pipeline]: cancel()+wait() in both _on_cancel_clicked and reject() override handles all ImportPreviewDialog close paths safely (Pitfall 4)
+- [Phase 03-data-pipeline]: ValidationReportDialog uses validation_error_indices set for O(1) valid/invalid split then maps back to original row_index for display (D-16)
 
 ### Pending Todos
 
@@ -93,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-31T09:30:37.594Z
-Stopped at: Completed 03-data-pipeline 03-01-PLAN.md
+Last session: 2026-03-31T09:36:45.116Z
+Stopped at: Checkpoint: 03-02 Task 3 human-verify (Tasks 1-2 complete)
 Resume file: None

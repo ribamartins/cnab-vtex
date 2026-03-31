@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: CNAB Engine** - Pure CNAB 240 byte-exact generation and validation library — no UI, no database
 - [x] **Phase 2: Foundation** - SQLite schema, authentication, and settings screen — prerequisites for file generation (completed 2026-03-30)
-- [ ] **Phase 3: Data Pipeline** - Excel import, VTEX enrichment, and pre-generation validation with per-row error reporting
+- [x] **Phase 3: Data Pipeline** - Excel import, VTEX enrichment, and pre-generation validation with per-row error reporting (completed 2026-03-31)
 - [ ] **Phase 4: Desktop Application** - PySide6 GUI connecting all services: login, upload flow, file management, dashboard, and audit log
 
 ## Phase Details
@@ -63,7 +63,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Excel parser module (openpyxl) and VTEX enrichment service (httpx) with test suites
-- [ ] 03-02-PLAN.md — ImportPreviewDialog, ValidationReportDialog, and MainWindow integration
+- [x] 03-02-PLAN.md — ImportPreviewDialog, ValidationReportDialog, and MainWindow integration
 
 ### Phase 4: Desktop Application
 **Goal**: The finance team can operate the full payment workflow end-to-end from a desktop application: import, generate, download, track, and audit CNAB files
@@ -91,5 +91,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. CNAB Engine | 2/2 | Complete |  |
 | 2. Foundation | 2/2 | Complete   | 2026-03-30 |
-| 3. Data Pipeline | 1/2 | In Progress|  |
+| 3. Data Pipeline | 2/2 | Complete   | 2026-03-31 |
 | 4. Desktop Application | 0/2 | Not started | - |
