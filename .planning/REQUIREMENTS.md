@@ -51,19 +51,19 @@
 
 - [x] **FILE-01**: Generated CNAB file is saved to database with status "Criado" and metadata (creation date, user, row count, total value)
 - [x] **FILE-02**: User can download the generated CNAB file as .txt for manual upload to Itaú Empresas
-- [ ] **FILE-03**: User can trigger transmission (mock/stub) which moves status to "Transmitido" or "Erro"
-- [ ] **FILE-04**: On transmission error, system saves error details alongside the file record
+- [x] **FILE-03**: User can trigger transmission (mock/stub) which moves status to "Transmitido" or "Erro"
+- [x] **FILE-04**: On transmission error, system saves error details alongside the file record
 
 ### Dashboard
 
 - [x] **DASH-01**: User can view list of all generated CNAB files with status, date, value, and row count
 - [x] **DASH-02**: User can filter files by status (Criado, Transmitido, Erro) and date range
-- [ ] **DASH-03**: User can view file details including individual payment rows and their status
+- [x] **DASH-03**: User can view file details including individual payment rows and their status
 
 ### Audit
 
 - [x] **AUDT-01**: System logs all significant actions (file generation, transmission attempt, status change) with user, timestamp, and details
-- [ ] **AUDT-02**: User can view audit log with filters by date and action type
+- [x] **AUDT-02**: User can view audit log with filters by date and action type
 
 ## v2 Requirements
 
@@ -120,13 +120,13 @@
 | CNAB-08 | Phase 1 | Complete |
 | FILE-01 | Phase 4 | Complete |
 | FILE-02 | Phase 4 | Complete |
-| FILE-03 | Phase 4 | Pending |
-| FILE-04 | Phase 4 | Pending |
+| FILE-03 | Phase 4 | Complete |
+| FILE-04 | Phase 4 | Complete |
 | DASH-01 | Phase 4 | Complete |
 | DASH-02 | Phase 4 | Complete |
-| DASH-03 | Phase 4 | Pending |
+| DASH-03 | Phase 4 | Complete |
 | AUDT-01 | Phase 4 | Complete |
-| AUDT-02 | Phase 4 | Pending |
+| AUDT-02 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 33 total

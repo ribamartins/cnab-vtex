@@ -79,7 +79,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — CNAB generation service, dashboard table with filters, generation pipeline wiring from ValidationReportDialog
-- [ ] 04-02-PLAN.md — File detail dialog (download + mock transmission), transmission confirmation, and audit log viewer
+- [x] 04-02-PLAN.md — File detail dialog (download + mock transmission), transmission confirmation, and audit log viewer
 **UI hint**: yes
 
 ## Progress
