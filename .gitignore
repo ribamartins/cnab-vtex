@@ -33,9 +33,12 @@ desktop.ini
 *.pem
 *.key
 
-# Planning artifacts (development only)
+# Claude / AI artifacts
 .planning/
+.claude/
+CLAUDE.md
 
-# Temp files
+# Excel temp/lock files
 ~$*
 *.tmp
+documents/Modelo.xlsx
