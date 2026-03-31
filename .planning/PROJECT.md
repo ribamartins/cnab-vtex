@@ -15,22 +15,19 @@ Gerar arquivos CNAB PIX válidos e transmiti-los ao Itaú sem erros — cada pag
 - [x] Detecção automática do tipo de chave PIX (CPF/CNPJ, telefone, email, chave aleatória) — Validated in Phase 1: CNAB Engine
 - [x] Geração de arquivo CNAB 240 SISPAG Itaú para PIX Transferência (Header Arquivo, Header Lote, Segmento A + Segmento B PIX, Trailer Lote, Trailer Arquivo) — Validated in Phase 1: CNAB Engine
 - [x] Validação prévia dos dados do beneficiário e chave PIX antes de gerar o CNAB — Validated in Phase 1: CNAB Engine
+- [x] Autenticação simples (login com usuário/senha, poucos usuários) — Validated in Phase 2: Foundation
+- [x] Tela de configurações para dados da empresa pagadora (CNPJ, agência, conta, DAC Itaú) — Validated in Phase 2: Foundation
+- [x] Upload de arquivo Excel com colunas: Nome do Beneficiário, Código (referenceId), Valor — Validated in Phase 3: Data Pipeline
+- [x] Consulta à API VTEX (MasterData) para cada linha do Excel usando referenceId — Validated in Phase 3: Data Pipeline
+- [x] Armazenamento de arquivos e metadados/status no banco de dados (status: Criado, Transmitido, Erro) — Validated in Phase 4: Desktop Application
+- [x] Movimentação de status: Criado → Transmitido (sucesso) ou Erro (falha), com log de erro — Validated in Phase 4: Desktop Application
+- [x] Dashboard de status com lista de arquivos gerados, filtros por data e status — Validated in Phase 4: Desktop Application
+- [x] Log de auditoria (quem gerou, quando transmitiu, erros ocorridos) — Validated in Phase 4: Desktop Application
 
 ### Active
 
-- [ ] Autenticação simples (login com usuário/senha, poucos usuários)
-- [ ] Upload de arquivo Excel com colunas: Nome do Beneficiário, Código (referenceId), Valor
-- [ ] Consulta à API VTEX (MasterData) para cada linha do Excel usando referenceId, retornando dados do beneficiário (pixKey, document, nome, etc.)
-- [ ] Detecção automática do tipo de chave PIX (CPF/CNPJ, telefone, email, chave aleatória)
-- [ ] Geração de arquivo CNAB 240 SISPAG Itaú para PIX Transferência (Header Arquivo, Header Lote, Segmento A + Segmento B PIX, Trailer Lote, Trailer Arquivo)
-- [ ] Validação prévia dos dados do beneficiário e chave PIX antes de gerar o CNAB
-- [ ] Armazenamento de arquivos e metadados/status no banco de dados (status: Criado, Transmitido, Erro)
-- [ ] Transmissão do arquivo para o Itaú via API bancária (implementação posterior — sem credenciais ainda)
-- [ ] Movimentação de status: Criado → Transmitido (sucesso) ou Erro (falha), com log de erro
-- [ ] Dashboard de status com lista de arquivos gerados, filtros por data e status
-- [ ] Log de auditoria (quem gerou, quando transmitiu, erros ocorridos)
-- [ ] Processamento de arquivo retorno do Itaú para confirmar pagamentos efetivados
-- [ ] Tela de configurações para dados da empresa pagadora (CNPJ, agência, conta, DAC Itaú)
+- [ ] Processamento de arquivo retorno do Itaú para confirmar pagamentos efetivados (v2)
+- [ ] Transmissão real do arquivo para o Itaú via API bancária (v2 — sem credenciais ainda)
 
 ### Out of Scope
 
@@ -84,4 +81,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after stack change (Flask → PySide6 desktop)*
+*Last updated: 2026-03-31 — Phase 4 complete, all v1 milestone phases delivered*
