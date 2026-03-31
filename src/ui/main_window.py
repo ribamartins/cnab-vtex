@@ -6,10 +6,11 @@ Status bar shows logged-in user.
 Phase 4 will add dashboard content.
 """
 from PySide6.QtWidgets import (
-    QMainWindow, QLabel, QWidget, QVBoxLayout
+    QMainWindow, QLabel, QWidget, QVBoxLayout, QDialog
 )
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction
+from ui.import_preview_dialog import ImportPreviewDialog
 
 
 class MainWindow(QMainWindow):
@@ -45,6 +46,12 @@ class MainWindow(QMainWindow):
         # File menu
         file_menu = menu_bar.addMenu("Arquivo")
 
+        import_action = QAction("Importar Planilha", self)
+        import_action.triggered.connect(self._open_import)
+        file_menu.addAction(import_action)
+
+        file_menu.addSeparator()
+
         settings_action = QAction("Configura\u00e7\u00f5es", self)
         settings_action.triggered.connect(self._open_settings)
         file_menu.addAction(settings_action)
@@ -77,6 +84,16 @@ class MainWindow(QMainWindow):
         layout.addWidget(placeholder)
 
         self.setCentralWidget(central)
+
+    def _open_import(self):
+        """Open the import dialog to import an Excel file for VTEX enrichment."""
+        dialog = ImportPreviewDialog(self._session, self._current_user, parent=self)
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
+            valid_payments = dialog.valid_payments()
+            # Phase 4 will use valid_payments to generate CNAB file
+            # For now, store reference for Phase 4 integration
+            self._last_valid_payments = valid_payments
 
     def _open_settings(self):
         """Open the settings window."""
