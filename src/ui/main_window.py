@@ -265,9 +265,16 @@ class MainWindow(QMainWindow):
     def _open_file_detail(self, index):
         """Open file detail dialog for the selected row."""
         row = index.row()
+        if row < 0 or row >= len(self._file_records):
+            return
         cnab_file = self._file_records[row]
-        # Plan 02 will implement FileDetailDialog
-        pass
+        # Refresh from DB to ensure relationships are loaded
+        self._session.refresh(cnab_file)
+        from ui.file_detail_dialog import FileDetailDialog
+        dialog = FileDetailDialog(cnab_file, self._session, self._current_user, parent=self)
+        dialog.exec()
+        if dialog.was_modified:
+            self._refresh_table()
 
     def _open_import(self):
         """Open the import dialog and trigger CNAB generation on accept."""
@@ -363,7 +370,9 @@ class MainWindow(QMainWindow):
 
     def _open_audit_log(self):
         """Open the audit log dialog."""
-        pass  # Plan 02 implements AuditLogDialog
+        from ui.audit_log_dialog import AuditLogDialog
+        dialog = AuditLogDialog(self._session, parent=self)
+        dialog.exec()
 
     def _open_settings(self):
         """Open the settings window."""
