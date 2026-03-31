@@ -67,7 +67,7 @@ only (QFont point sizes are DPI-scaled by Qt). The global QSS baseline is 13px /
 | Body | 13px | 400 (Normal) | Qt default (1.4 approx) | All table cells, form labels, status bar |
 | Label/Caption | 12px | 400 (Normal) | Qt default | Error label under buttons, secondary hints |
 | Subheading | 13px | 700 (Bold) | Qt default | Table header sections (QHeaderView), section group titles |
-| Heading | 14pt (QFont) | 600 (DemiBold) | Qt default | Dialog titles, summary bar in ValidationReportDialog |
+| Heading | 14pt (QFont) | 700 (Bold) | Qt default | Dialog titles, summary bar in ValidationReportDialog |
 
 Rules:
 - Never use more than 2 weights in any single dialog
@@ -75,7 +75,7 @@ Rules:
 - Primary CTA buttons use 13px bold (already in QSS: `font-weight: bold` on `QPushButton#primary`)
 - Status badges use 12px bold colored text (inline QLabel with inline stylesheet)
 
-Source: src/ui/styles.py (font-size: 13px global, QFont.Weight.Bold/DemiBold in login_dialog.py and validation_report_dialog.py)
+Source: src/ui/styles.py (font-size: 13px global, QFont.Weight.Bold in login_dialog.py and validation_report_dialog.py)
 
 ---
 
@@ -109,6 +109,8 @@ Selection highlight (already in QSS):
 Hover states for row-click interaction (dashboard table):
 - No custom hover needed — Qt default selection highlight (#E3F2FD) is sufficient
 - Cursor changes to Qt.CursorShape.PointingHandCursor on table rows that open dialogs
+
+**Focal point — primary screen (dashboard):** "Importar Planilha" button (accent background #1565C0, top-left of toolbar row) is the primary visual anchor. It is the only accent-colored element in the dashboard view and must be the first actionable element in tab order.
 
 Source: src/ui/styles.py (all tokens, pre-populated)
 
@@ -171,11 +173,12 @@ Standard QMessageBox.question() is NOT used — use a custom QDialog for value/c
 
 | Widget | Type | Notes |
 |--------|------|-------|
-| Body text | QLabel | "Transmitir {N} pagamentos no valor de R$ {value}?" |
+| Body text line 1 | QLabel | "Transmitir {N} pagamentos no valor de R$ {value}?" |
+| Body text line 2 | QLabel | "Esta acao nao pode ser desfeita." — rendered in COLOR_INACTIVE (secondary text color), body 13px weight 400, directly below line 1 |
 | Button row | QHBoxLayout | [Cancelar] [Confirmar Transmissao] |
 | "Confirmar Transmissao" | QPushButton | objectName="primary" |
 
-Fixed size: 400x160. Non-resizable.
+Fixed size: 400x200. Non-resizable.
 
 ### CNAB Generation Progress
 
@@ -271,7 +274,8 @@ All copy is in Portuguese (pt-BR). No English in user-visible text.
 | Filter label (status) | "Status:" |
 | Filter label (date from) | "De:" |
 | Filter label (date to) | "Ate:" |
-| Transmission confirmation body | "Transmitir {N} pagamento(s) no valor de R$ {value}?" |
+| Transmission confirmation body line 1 | "Transmitir {N} pagamento(s) no valor de R$ {value}?" |
+| Transmission confirmation body line 2 | "Esta acao nao pode ser desfeita." |
 | Generation progress label | "Aguarde..." |
 | Generation success | "Arquivo gerado e salvo com sucesso." |
 | Transmission success | "Arquivo transmitido com sucesso." |
@@ -292,7 +296,7 @@ Audit action vocabulary (stored in AuditLog.action field, also shown in filter d
 | "transmissao_erro" | Erro | Transmission fails (dev path) |
 
 Destructive actions in this phase:
-- Transmission is irreversible-feeling but not data-destructive. Confirmation dialog is required (D-08). No undo. Copy: "Esta acao nao pode ser desfeita."
+- Transmission is irreversible-feeling but not data-destructive. Confirmation dialog is required (D-08). No undo. "Esta acao nao pode ser desfeita." renders as body line 2 in TransmissionConfirmDialog (see Component Inventory above).
 
 ---
 
