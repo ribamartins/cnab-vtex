@@ -148,6 +148,11 @@ fi
 
 cd "$INSTALL_DIR"
 
+# Clean up AI/development artifacts (not needed for runtime)
+step "Limpando arquivos de desenvolvimento..."
+rm -rf .planning/ .claude/ CLAUDE.md tests/ documents/Modelo.xlsx 2>/dev/null || true
+ok "Arquivos de desenvolvimento removidos"
+
 # --- 4. Create virtual environment and install dependencies ---
 step "Criando ambiente virtual..."
 

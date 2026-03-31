@@ -139,6 +139,17 @@ if (Test-Path "$InstallDir\src\main.py") {
     Write-Ok "Repositorio clonado em $InstallDir"
 }
 
+# Clean up AI/development artifacts (not needed for runtime)
+Write-Step "Limpando arquivos de desenvolvimento..."
+$cleanupPaths = @(".planning", ".claude", "CLAUDE.md", "tests", "documents\Modelo.xlsx")
+foreach ($path in $cleanupPaths) {
+    $fullPath = Join-Path $InstallDir $path
+    if (Test-Path $fullPath) {
+        Remove-Item $fullPath -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+Write-Ok "Arquivos de desenvolvimento removidos"
+
 # --- 4. Create virtual environment and install dependencies ---
 Write-Step "Criando ambiente virtual..."
 

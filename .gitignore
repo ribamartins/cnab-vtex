@@ -33,9 +33,7 @@ desktop.ini
 *.pem
 *.key
 
-# Planning artifacts (development only)
-.planning/
-
-# Temp files
+# Excel temp/lock files
 ~$*
 *.tmp
+documents/Modelo.xlsx
