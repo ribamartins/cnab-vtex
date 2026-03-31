@@ -119,6 +119,11 @@ def get_app_stylesheet() -> str:
     QPushButton#destructive:disabled {{
         color: {COLOR_INACTIVE};
     }}
+    QWidget#toolbar {{
+        background-color: {COLOR_PANEL};
+        border: 1px solid {COLOR_BORDER};
+        border-radius: 4px;
+    }}
     QTableWidget {{
         background-color: {COLOR_PANEL};
         border: 1px solid {COLOR_BORDER};

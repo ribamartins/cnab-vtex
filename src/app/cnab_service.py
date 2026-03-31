@@ -143,3 +143,33 @@ def mock_transmit(session, cnab_file: CnabFile, user_id: int) -> None:
         'cnab_file',
         cnab_file.id,
     )
+
+
+def delete_cnab_file(session, cnab_file: CnabFile, user_id: int) -> None:
+    """Delete a CNAB file and its payments. Only allowed for Criado/Erro status.
+
+    Logs an audit entry before deletion.
+    Does NOT commit -- caller controls the transaction.
+    """
+    if cnab_file.status not in ('Criado', 'Erro'):
+        raise ValueError(
+            f"Apenas arquivos com status Criado ou Erro podem ser excluidos. "
+            f"Status atual: {cnab_file.status}"
+        )
+
+    filename = cnab_file.filename
+    file_id = cnab_file.id
+
+    log_audit(
+        session,
+        user_id,
+        'exclusao',
+        f'{filename} excluido ({cnab_file.row_count} pagamentos, '
+        f'{_format_value_brl(cnab_file.total_value_cents)})',
+        'cnab_file',
+        file_id,
+    )
+
+    for payment in cnab_file.payments:
+        session.delete(payment)
+    session.delete(cnab_file)

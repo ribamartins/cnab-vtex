@@ -8,8 +8,8 @@ from pathlib import Path
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QGroupBox, QFormLayout,
     QPushButton, QLabel, QTableWidget, QTableWidgetItem, QHeaderView,
-    QAbstractItemView, QFileDialog, QMessageBox, QProgressDialog,
-    QApplication, QSpacerItem, QSizePolicy,
+    QAbstractItemView, QFileDialog, QMessageBox,
+    QSpacerItem, QSizePolicy,
 )
 from PySide6.QtCore import Qt, QSettings, QStandardPaths
 
@@ -47,7 +47,7 @@ class FileDetailDialog(QDialog):
         self._cnab_file = cnab_file
         self._session = session
         self._current_user = current_user
-        self._transmitted = False
+        self._deleted = False
 
         self.setWindowTitle(f"Detalhes do Arquivo \u2014 {cnab_file.filename}")
         self.setMinimumSize(700, 500)
@@ -166,15 +166,17 @@ class FileDetailDialog(QDialog):
             QSpacerItem(0, 0, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         )
 
+        self._delete_btn = QPushButton("Excluir")
+        self._delete_btn.setObjectName("destructive")
+        self._delete_btn.clicked.connect(self._delete)
+        self._delete_btn.setVisible(
+            self._cnab_file.status in ('Criado', 'Erro')
+        )
+        btn_layout.addWidget(self._delete_btn)
+
         download_btn = QPushButton("Baixar .txt")
         download_btn.clicked.connect(self._download)
         btn_layout.addWidget(download_btn)
-
-        self._transmit_btn = QPushButton("Transmitir")
-        self._transmit_btn.setObjectName("primary")
-        self._transmit_btn.clicked.connect(self._transmit)
-        self._transmit_btn.setVisible(self._cnab_file.status == 'Criado')
-        btn_layout.addWidget(self._transmit_btn)
 
         close_btn = QPushButton("Fechar")
         close_btn.clicked.connect(self.close)
@@ -228,65 +230,32 @@ class FileDetailDialog(QDialog):
                     "Nao foi possivel salvar o arquivo. Verifique permissoes e espaco em disco.",
                 )
 
-    def _transmit(self):
-        """Trigger mock transmission after user confirmation."""
-        from ui.transmission_confirm_dialog import TransmissionConfirmDialog
-
-        confirm = TransmissionConfirmDialog(
-            self._cnab_file.row_count,
-            self._cnab_file.total_value_cents,
-            parent=self,
+    def _delete(self):
+        """Delete the CNAB file after user confirmation."""
+        reply = QMessageBox.warning(
+            self,
+            "Confirmar exclusao",
+            f"Tem certeza que deseja excluir o arquivo {self._cnab_file.filename}?\n\n"
+            "Esta acao nao pode ser desfeita.",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No,
         )
-        if confirm.exec() == QDialog.DialogCode.Accepted:
-            progress = QProgressDialog("Aguarde...", None, 0, 0, self)
-            progress.setWindowTitle("Transmitindo...")
-            progress.setCancelButton(None)
-            progress.setWindowModality(Qt.WindowModality.WindowModal)
-            progress.show()
-            QApplication.processEvents()
+        if reply != QMessageBox.StandardButton.Yes:
+            return
 
-            try:
-                from app.cnab_service import mock_transmit
-                mock_transmit(self._session, self._cnab_file, self._current_user.id)
-                self._session.commit()
-
-                progress.close()
-
-                QMessageBox.information(
-                    self,
-                    "Transmissao concluida",
-                    "Arquivo transmitido com sucesso.",
-                )
-
-                self._refresh_after_transmit()
-            except Exception as e:
-                self._session.rollback()
-                progress.close()
-                QMessageBox.critical(self, "Erro na transmissao", str(e))
-
-    def _refresh_after_transmit(self):
-        """Update UI after successful transmission."""
-        self._session.refresh(self._cnab_file)
-        self._status_label.setText(self._cnab_file.status)
-        self._status_label.setStyleSheet(
-            self._status_style(self._cnab_file.status)
-        )
-        self._transmit_btn.setVisible(False)
-        self._transmitted = True
-
-        # Add transmitted_at label if not already present
-        if self._cnab_file.transmitted_at and self._transmitted_at_label is None:
-            # Find the info form layout and add transmitted_at row
-            info_group = self.findChild(QGroupBox, "")
-            if info_group:
-                form = info_group.layout()
-                if form:
-                    self._transmitted_at_label = QLabel(
-                        self._cnab_file.transmitted_at.strftime('%d/%m/%Y %H:%M')
-                    )
-                    form.addRow("Transmitido em:", self._transmitted_at_label)
+        try:
+            from app.cnab_service import delete_cnab_file
+            delete_cnab_file(
+                self._session, self._cnab_file, self._current_user.id
+            )
+            self._session.commit()
+            self._deleted = True
+            self.accept()
+        except Exception as e:
+            self._session.rollback()
+            QMessageBox.critical(self, "Erro ao excluir", str(e))
 
     @property
     def was_modified(self) -> bool:
-        """Return True if transmission occurred during this dialog session."""
-        return self._transmitted
+        """Return True if file was transmitted or deleted during this dialog session."""
+        return self._deleted

@@ -21,7 +21,7 @@ from pathlib import Path
 from ui.import_preview_dialog import ImportPreviewDialog
 from ui.styles import (
     get_app_stylesheet, COLOR_ACTIVE, COLOR_INACTIVE, COLOR_DESTRUCTIVE,
-    COLOR_BG, SPACING_LG, SPACING_MD,
+    COLOR_BG, SPACING_LG, SPACING_MD, SPACING_SM,
 )
 from app.models import CnabFile, Company
 
@@ -108,8 +108,9 @@ class MainWindow(QMainWindow):
 
         # --- Toolbar row ---
         toolbar = QWidget()
+        toolbar.setObjectName("toolbar")
         toolbar_layout = QHBoxLayout(toolbar)
-        toolbar_layout.setContentsMargins(0, 0, 0, 0)
+        toolbar_layout.setContentsMargins(SPACING_MD, SPACING_SM, SPACING_MD, SPACING_SM)
 
         import_btn = QPushButton("Importar Planilha")
         import_btn.setObjectName("primary")
@@ -160,7 +161,9 @@ class MainWindow(QMainWindow):
         header = self._file_table.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
-        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        header.setMinimumSectionSize(100)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
+        self._file_table.setColumnWidth(2, 120)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
 
@@ -257,10 +260,9 @@ class MainWindow(QMainWindow):
             )
             self._file_table.setItem(row_idx, 4, value_item)
 
-        # Toggle empty state
-        has_rows = len(self._file_records) > 0
-        self._file_table.setVisible(has_rows)
-        self._empty_label.setVisible(not has_rows)
+        # Always show table (empty grid looks better than hiding it)
+        self._file_table.setVisible(True)
+        self._empty_label.setVisible(False)
 
     def _open_file_detail(self, index):
         """Open file detail dialog for the selected row."""
