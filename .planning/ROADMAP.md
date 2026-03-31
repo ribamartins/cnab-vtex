@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: CNAB Engine** - Pure CNAB 240 byte-exact generation and validation library — no UI, no database
 - [x] **Phase 2: Foundation** - SQLite schema, authentication, and settings screen — prerequisites for file generation (completed 2026-03-30)
-- [x] **Phase 3: Data Pipeline** - Excel import, VTEX enrichment, and pre-generation validation with per-row error reporting (completed 2026-03-31)
+- [x] **Phase 3: Data Pipeline** - Excel import, VTEX enrichment, and pre-generation validation with per-row error reporting (completed 2026-03-31)
 - [ ] **Phase 4: Desktop Application** - PySide6 GUI connecting all services: login, upload flow, file management, dashboard, and audit log
 
 ## Phase Details
@@ -75,11 +75,11 @@ Plans:
   3. Dashboard shows all generated CNAB files with status, date, total value, and row count; user can filter by status and date range without writing any query
   4. User can drill into any file record and see individual payment rows with their status
   5. Audit log captures every significant action (generation, transmission attempt, status change) with actor and timestamp; user can view and filter the log by date and action type
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: File generation flow (PySide6 pipeline wiring: Validator -> CNAB Builder -> File Store -> download), file management, and mock transmission
-- [ ] 04-02: Dashboard (file list, filters, detail view) and audit log viewer
+- [ ] 04-01-PLAN.md — CNAB generation service, dashboard table with filters, generation pipeline wiring from ValidationReportDialog
+- [ ] 04-02-PLAN.md — File detail dialog (download + mock transmission), transmission confirmation, and audit log viewer
 **UI hint**: yes
 
 ## Progress
