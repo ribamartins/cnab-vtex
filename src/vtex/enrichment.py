@@ -39,6 +39,7 @@ class EnrichmentResult:
     """
     row_index: int
     reference_id: str
+    nome: str
     payment: Optional[PaymentInput]
     error: Optional[str]
 
@@ -118,17 +119,19 @@ def _fetch_one(client: httpx.Client, headers: dict, idx: int, row) -> Enrichment
             return EnrichmentResult(
                 row_index=idx,
                 reference_id=row.codigo,
+                nome=row.nome,
                 payment=None,
                 error="Nao encontrado na VTEX",
             )
 
         record = data[0]
-        return _map_to_payment(idx, row.codigo, record, row.valor)
+        return _map_to_payment(idx, row.codigo, row.nome, record, row.valor)
 
     except httpx.TimeoutException:
         return EnrichmentResult(
             row_index=idx,
             reference_id=row.codigo,
+            nome=row.nome,
             payment=None,
             error="Timeout ao consultar VTEX",
         )
@@ -136,6 +139,7 @@ def _fetch_one(client: httpx.Client, headers: dict, idx: int, row) -> Enrichment
         return EnrichmentResult(
             row_index=idx,
             reference_id=row.codigo,
+            nome=row.nome,
             payment=None,
             error=f"Erro HTTP {exc.response.status_code}",
         )
@@ -143,6 +147,7 @@ def _fetch_one(client: httpx.Client, headers: dict, idx: int, row) -> Enrichment
         return EnrichmentResult(
             row_index=idx,
             reference_id=row.codigo,
+            nome=row.nome,
             payment=None,
             error=f"Erro inesperado: {exc}",
         )
@@ -151,6 +156,7 @@ def _fetch_one(client: httpx.Client, headers: dict, idx: int, row) -> Enrichment
 def _map_to_payment(
     idx: int,
     ref_id: str,
+    nome: str,
     record: dict,
     valor: Decimal,
 ) -> EnrichmentResult:
@@ -170,6 +176,7 @@ def _map_to_payment(
         return EnrichmentResult(
             row_index=idx,
             reference_id=ref_id,
+            nome=nome,
             payment=None,
             error="pixKey ausente no registro VTEX",
         )
@@ -180,6 +187,7 @@ def _map_to_payment(
         return EnrichmentResult(
             row_index=idx,
             reference_id=ref_id,
+            nome=nome,
             payment=None,
             error=f"Tipo de chave PIX nao reconhecido: {pix_key!r}",
         )
@@ -204,6 +212,7 @@ def _map_to_payment(
     return EnrichmentResult(
         row_index=idx,
         reference_id=ref_id,
+        nome=nome,
         payment=payment,
         error=None,
     )

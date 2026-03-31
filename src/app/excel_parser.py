@@ -99,6 +99,25 @@ def parse_excel(path: Path) -> ParseResult:
     finally:
         wb.close()
 
+    # Detect duplicate rows with same codigo + valor
+    seen: dict[tuple[str, Decimal], int] = {}
+    duplicates: list[str] = []
+    for i, row in enumerate(parsed_rows):
+        key = (row.codigo, row.valor)
+        if key in seen:
+            duplicates.append(
+                f"Linha {i + 2} duplica linha {seen[key] + 2}: "
+                f"codigo '{row.codigo}', valor '{row.original_valor}'"
+            )
+        else:
+            seen[key] = i
+
+    if duplicates:
+        raise ExcelParseError(
+            "Linhas duplicadas encontradas (mesmo codigo e valor):\n"
+            + "\n".join(duplicates)
+        )
+
     total_value = sum((row.valor for row in parsed_rows), Decimal("0"))
     return ParseResult(
         rows=parsed_rows,

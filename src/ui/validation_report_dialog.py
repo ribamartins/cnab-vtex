@@ -141,16 +141,21 @@ class ValidationReportDialog(QDialog):
             main_layout.addWidget(error_label)
 
             error_table = QTableWidget()
-            error_table.setColumnCount(3)
-            error_table.setHorizontalHeaderLabels(["Linha", "Codigo", "Erro"])
+            error_table.setColumnCount(4)
+            error_table.setHorizontalHeaderLabels(
+                ["Linha", "Nome do Beneficiario", "Codigo", "Erro"]
+            )
             error_table.horizontalHeader().setSectionResizeMode(
                 0, QHeaderView.ResizeMode.ResizeToContents
             )
             error_table.horizontalHeader().setSectionResizeMode(
-                1, QHeaderView.ResizeMode.ResizeToContents
+                1, QHeaderView.ResizeMode.Stretch
             )
             error_table.horizontalHeader().setSectionResizeMode(
-                2, QHeaderView.ResizeMode.Stretch
+                2, QHeaderView.ResizeMode.ResizeToContents
+            )
+            error_table.horizontalHeader().setSectionResizeMode(
+                3, QHeaderView.ResizeMode.Stretch
             )
             error_table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
             error_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -162,6 +167,7 @@ class ValidationReportDialog(QDialog):
             for r in self._vtex_errors:
                 all_error_rows.append((
                     str(r.row_index + 1),    # 1-based line number
+                    r.nome,
                     r.reference_id,
                     r.error or "Erro desconhecido",
                 ))
@@ -172,15 +178,17 @@ class ValidationReportDialog(QDialog):
                 enriched_result = self._enriched[ve.row]
                 all_error_rows.append((
                     str(enriched_result.row_index + 1),   # 1-based original line
+                    enriched_result.nome,
                     enriched_result.reference_id,
                     f"{ve.field}: {ve.message}",
                 ))
 
             error_table.setRowCount(len(all_error_rows))
-            for row_idx, (line, codigo, message) in enumerate(all_error_rows):
+            for row_idx, (line, nome, codigo, message) in enumerate(all_error_rows):
                 error_table.setItem(row_idx, 0, QTableWidgetItem(line))
-                error_table.setItem(row_idx, 1, QTableWidgetItem(codigo))
-                error_table.setItem(row_idx, 2, QTableWidgetItem(message))
+                error_table.setItem(row_idx, 1, QTableWidgetItem(nome))
+                error_table.setItem(row_idx, 2, QTableWidgetItem(codigo))
+                error_table.setItem(row_idx, 3, QTableWidgetItem(message))
 
             main_layout.addWidget(error_table)
         else:

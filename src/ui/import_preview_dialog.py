@@ -230,10 +230,9 @@ class ImportPreviewDialog(QDialog):
         )
         self._summary_label.setVisible(True)
 
-        # Populate preview table (first 10 rows)
-        preview_rows = result.rows[:10]
-        self._preview_table.setRowCount(len(preview_rows))
-        for row_idx, parsed_row in enumerate(preview_rows):
+        # Populate preview table (all rows)
+        self._preview_table.setRowCount(len(result.rows))
+        for row_idx, parsed_row in enumerate(result.rows):
             self._preview_table.setItem(
                 row_idx, 0,
                 QTableWidgetItem(str(row_idx + 1))
@@ -248,7 +247,7 @@ class ImportPreviewDialog(QDialog):
             )
             self._preview_table.setItem(
                 row_idx, 3,
-                QTableWidgetItem(parsed_row.original_valor)
+                QTableWidgetItem(_format_brl(parsed_row.valor))
             )
         self._preview_table.setVisible(True)
 
