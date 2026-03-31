@@ -138,11 +138,11 @@ step "Clonando repositorio..."
 if [ -f "$INSTALL_DIR/src/main.py" ]; then
     warn "Instalacao existente encontrada. Atualizando..."
     cd "$INSTALL_DIR"
-    git pull origin main 2>&1
+    git pull origin staging 2>&1
     ok "Repositorio atualizado"
 else
     rm -rf "$INSTALL_DIR" 2>/dev/null || true
-    git clone "$REPO_URL" "$INSTALL_DIR" 2>&1
+    git clone --branch staging "$REPO_URL" "$INSTALL_DIR" 2>&1
     ok "Repositorio clonado em $INSTALL_DIR"
 fi
 

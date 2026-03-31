@@ -5,7 +5,7 @@ param(
     [string]$InstallDir = "$env:LOCALAPPDATA\CNAB-PIX"
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "SilentlyContinue"
 $RepoURL = "https://github.com/ribamartins/cnab-vtex.git"
 $MinPython = "3.12"
 
@@ -13,6 +13,14 @@ function Write-Step($msg) { Write-Host "`n>> $msg" -ForegroundColor Cyan }
 function Write-Ok($msg)   { Write-Host "   $msg" -ForegroundColor Green }
 function Write-Warn($msg) { Write-Host "   $msg" -ForegroundColor Yellow }
 function Write-Fail($msg) { Write-Host "   $msg" -ForegroundColor Red }
+
+function Invoke-Git {
+    param([string[]]$Arguments)
+    $output = & git @Arguments 2>&1
+    $exitCode = $LASTEXITCODE
+    $output | ForEach-Object { Write-Host "   $_" }
+    return $exitCode
+}
 
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Cyan
@@ -27,7 +35,7 @@ Write-Step "Verificando Python..."
 $pythonCmd = $null
 foreach ($cmd in @("python", "python3", "py")) {
     try {
-        $ver = & $cmd --version 2>&1
+        $ver = & $cmd --version 2>&1 | Out-String
         if ($ver -match "Python (\d+\.\d+)") {
             $found = $Matches[1]
             if ([version]$found -ge [version]$MinPython) {
@@ -53,7 +61,7 @@ if (-not $pythonCmd) {
     Write-Host "   Instalando Python (isso pode levar alguns minutos)..."
     Start-Process -FilePath $installerPath -ArgumentList "/quiet", "InstallAllUsers=0", "PrependPath=1", "Include_pip=1" -Wait -NoNewWindow
 
-    Remove-Item $installerPath -ErrorAction SilentlyContinue
+    Remove-Item $installerPath -Force 2>$null
 
     # Refresh PATH
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "User") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "Machine")
@@ -61,7 +69,7 @@ if (-not $pythonCmd) {
     # Re-check
     foreach ($cmd in @("python", "python3", "py")) {
         try {
-            $ver = & $cmd --version 2>&1
+            $ver = & $cmd --version 2>&1 | Out-String
             if ($ver -match "Python (\d+\.\d+)" -and [version]$Matches[1] -ge [version]$MinPython) {
                 $pythonCmd = $cmd
                 break
@@ -83,10 +91,10 @@ Write-Step "Verificando Git..."
 
 $gitAvailable = $false
 try {
-    $gitVer = & git --version 2>&1
+    $gitVer = & git --version 2>&1 | Out-String
     if ($gitVer -match "git version") {
         $gitAvailable = $true
-        Write-Ok "Git encontrado: $gitVer"
+        Write-Ok "Git encontrado: $($gitVer.Trim())"
     }
 } catch {}
 
@@ -102,13 +110,13 @@ if (-not $gitAvailable) {
     Write-Host "   Instalando Git..."
     Start-Process -FilePath $gitInstaller -ArgumentList "/VERYSILENT", "/NORESTART", "/NOCANCEL", "/SP-", "/CLOSEAPPLICATIONS", "/RESTARTAPPLICATIONS", "/COMPONENTS=icons,ext\reg\shellhere,assoc,assoc_sh" -Wait -NoNewWindow
 
-    Remove-Item $gitInstaller -ErrorAction SilentlyContinue
+    Remove-Item $gitInstaller -Force 2>$null
 
     # Refresh PATH
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "User") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "Machine")
 
     try {
-        $gitVer = & git --version 2>&1
+        $gitVer = & git --version 2>&1 | Out-String
         if ($gitVer -match "git version") {
             $gitAvailable = $true
             Write-Ok "Git instalado com sucesso"
@@ -128,14 +136,19 @@ Write-Step "Clonando repositorio..."
 if (Test-Path "$InstallDir\src\main.py") {
     Write-Warn "Instalacao existente encontrada. Atualizando..."
     Push-Location $InstallDir
-    & git pull origin main 2>&1
+    Invoke-Git @("pull", "origin", "staging") | Out-Null
     Pop-Location
     Write-Ok "Repositorio atualizado"
 } else {
     if (Test-Path $InstallDir) {
         Remove-Item $InstallDir -Recurse -Force
     }
-    & git clone $RepoURL $InstallDir 2>&1
+    Invoke-Git @("clone", "--branch", "staging", $RepoURL, $InstallDir) | Out-Null
+    if (-not (Test-Path "$InstallDir\src\main.py")) {
+        Write-Fail "Falha ao clonar repositorio. Verifique sua conexao com a internet."
+        Read-Host "Pressione Enter para sair"
+        exit 1
+    }
     Write-Ok "Repositorio clonado em $InstallDir"
 }
 
@@ -145,7 +158,7 @@ $cleanupPaths = @(".planning", ".claude", "CLAUDE.md", "tests", "documents\Model
 foreach ($path in $cleanupPaths) {
     $fullPath = Join-Path $InstallDir $path
     if (Test-Path $fullPath) {
-        Remove-Item $fullPath -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item $fullPath -Recurse -Force 2>$null
     }
 }
 Write-Ok "Arquivos de desenvolvimento removidos"
@@ -157,14 +170,26 @@ Push-Location $InstallDir
 
 if (-not (Test-Path "venv")) {
     & $pythonCmd -m venv venv
+    if (-not (Test-Path "venv\Scripts\pip.exe")) {
+        Write-Fail "Falha ao criar ambiente virtual."
+        Pop-Location
+        Read-Host "Pressione Enter para sair"
+        exit 1
+    }
     Write-Ok "Ambiente virtual criado"
 } else {
     Write-Ok "Ambiente virtual existente"
 }
 
 Write-Step "Instalando dependencias..."
-& venv\Scripts\pip.exe install --upgrade pip --quiet 2>&1
-& venv\Scripts\pip.exe install -r requirements.txt --quiet 2>&1
+& venv\Scripts\python.exe -m pip install --upgrade pip --quiet 2>&1 | Out-Null
+& venv\Scripts\pip.exe install -r requirements.txt --quiet 2>&1 | Out-Null
+if ($LASTEXITCODE -ne 0) {
+    Write-Fail "Erro ao instalar dependencias. Verifique requirements.txt."
+    Pop-Location
+    Read-Host "Pressione Enter para sair"
+    exit 1
+}
 Write-Ok "Dependencias instaladas"
 
 Pop-Location
