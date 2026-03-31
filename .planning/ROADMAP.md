@@ -78,7 +78,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — CNAB generation service, dashboard table with filters, generation pipeline wiring from ValidationReportDialog
+- [x] 04-01-PLAN.md — CNAB generation service, dashboard table with filters, generation pipeline wiring from ValidationReportDialog
 - [ ] 04-02-PLAN.md — File detail dialog (download + mock transmission), transmission confirmation, and audit log viewer
 **UI hint**: yes
 
@@ -92,4 +92,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. CNAB Engine | 2/2 | Complete |  |
 | 2. Foundation | 2/2 | Complete   | 2026-03-30 |
 | 3. Data Pipeline | 2/2 | Complete   | 2026-03-31 |
-| 4. Desktop Application | 0/2 | Not started | - |
+| 4. Desktop Application | 1/2 | In Progress|  |

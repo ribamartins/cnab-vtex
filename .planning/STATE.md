@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 4 UI-SPEC approved
-last_updated: "2026-03-31T11:43:17.208Z"
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-31T13:18:07.901Z"
 last_activity: 2026-03-31
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 8
+  completed_plans: 7
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** Gerar arquivos CNAB PIX válidos e transmiti-los ao Itaú sem erros — cada pagamento deve chegar ao beneficiário correto com o valor correto.
-**Current focus:** Phase 03 — data-pipeline
+**Current focus:** Phase 04 — desktop-application
 
 ## Current Position
 
-Phase: 4
-Plan: Not started
+Phase: 04 (desktop-application) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
 Last activity: 2026-03-31
 
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-foundation P02 | 6 | 1 tasks | 8 files |
 | Phase 03-data-pipeline P01 | 3 | 2 tasks | 6 files |
 | Phase 03-data-pipeline P02 | 4 | 2 tasks | 3 files |
+| Phase 04-desktop-application P01 | 122 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,8 @@ Recent decisions affecting current work:
 - [Phase 03-data-pipeline]: VTEX throttle 300ms per row (D-08 range 200-500ms); rows param duck-typed to avoid circular import between app.excel_parser and vtex.enrichment
 - [Phase 03-data-pipeline]: cancel()+wait() in both _on_cancel_clicked and reject() override handles all ImportPreviewDialog close paths safely (Pitfall 4)
 - [Phase 03-data-pipeline]: ValidationReportDialog uses validation_error_indices set for O(1) valid/invalid split then maps back to original row_index for display (D-16)
+- [Phase 04-desktop-application]: Service layer pattern: cnab_service functions flush but never commit, caller owns transaction boundaries
+- [Phase 04-desktop-application]: QSettings('PrettyNew', 'CNAB-PIX') persists last Save As directory across sessions
 
 ### Pending Todos
 
@@ -96,6 +99,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-31T11:43:17.205Z
-Stopped at: Phase 4 UI-SPEC approved
-Resume file: .planning/phases/04-desktop-application/04-UI-SPEC.md
+Last session: 2026-03-31T13:18:07.899Z
+Stopped at: Completed 04-01-PLAN.md
+Resume file: None
