@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-30T23:05:06.020Z"
+stopped_at: Completed 03-data-pipeline 03-01-PLAN.md
+last_updated: "2026-03-31T09:30:37.597Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
   percent: 0
 ---
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-cnab-engine P02 | 15 | 2 tasks | 4 files |
 | Phase 02-foundation P01 | 7 | 2 tasks | 14 files |
 | Phase 02-foundation P02 | 6 | 1 tasks | 8 files |
+| Phase 03-data-pipeline P01 | 3 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,8 @@ Recent decisions affecting current work:
 - [Phase 02-foundation]: Optional[T] used in Mapped columns instead of T|None for SQLAlchemy annotations
 - [Phase 02-foundation]: PySide6 upgraded to 6.10.1 — Python 3.14 requires >=6.10.1, 6.8.1 is incompatible
 - [Phase 02-foundation]: Screen-as-QDialog pattern: all screens receive session as constructor param for testability
+- [Phase 03-data-pipeline]: Excel column names case-sensitive and exact: Nome do Beneficiario, Codigo, Valor (D-01)
+- [Phase 03-data-pipeline]: VTEX throttle 300ms per row (D-08 range 200-500ms); rows param duck-typed to avoid circular import between app.excel_parser and vtex.enrichment
 
 ### Pending Todos
 
@@ -90,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T23:05:06.017Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-data-pipeline/03-CONTEXT.md
+Last session: 2026-03-31T09:30:37.594Z
+Stopped at: Completed 03-data-pipeline 03-01-PLAN.md
+Resume file: None

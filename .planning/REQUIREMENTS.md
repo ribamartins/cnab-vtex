@@ -19,14 +19,14 @@
 
 ### Excel Import
 
-- [ ] **IMPT-01**: User can import Excel file (.xlsx) with columns: Nome do Beneficiário, Código (referenceId), Valor
-- [ ] **IMPT-02**: System validates Excel structure before processing (required columns, data types)
+- [x] **IMPT-01**: User can import Excel file (.xlsx) with columns: Nome do Beneficiário, Código (referenceId), Valor
+- [x] **IMPT-02**: System validates Excel structure before processing (required columns, data types)
 - [ ] **IMPT-03**: System displays import preview with row count and total value before proceeding
 
 ### VTEX Integration
 
-- [ ] **VTEX-01**: System queries VTEX MasterData API for each referenceId and retrieves beneficiary data (pixKey, document, name, email, phone)
-- [ ] **VTEX-02**: System handles VTEX API errors gracefully (timeout, not found, rate limit) with per-row error reporting
+- [x] **VTEX-01**: System queries VTEX MasterData API for each referenceId and retrieves beneficiary data (pixKey, document, name, email, phone)
+- [x] **VTEX-02**: System handles VTEX API errors gracefully (timeout, not found, rate limit) with per-row error reporting
 - [ ] **VTEX-03**: System displays enrichment results with success/failure status per row before CNAB generation
 
 ### Validation
@@ -100,11 +100,11 @@
 | CONF-01 | Phase 2 | Complete |
 | CONF-02 | Phase 2 | Complete |
 | CONF-03 | Phase 2 | Complete |
-| IMPT-01 | Phase 3 | Pending |
-| IMPT-02 | Phase 3 | Pending |
+| IMPT-01 | Phase 3 | Complete |
+| IMPT-02 | Phase 3 | Complete |
 | IMPT-03 | Phase 3 | Pending |
-| VTEX-01 | Phase 3 | Pending |
-| VTEX-02 | Phase 3 | Pending |
+| VTEX-01 | Phase 3 | Complete |
+| VTEX-02 | Phase 3 | Complete |
 | VTEX-03 | Phase 3 | Pending |
 | VALD-01 | Phase 1 | Complete |
 | VALD-02 | Phase 1 | Complete |

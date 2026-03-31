@@ -62,7 +62,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Excel parser module (openpyxl) and VTEX enrichment service (httpx) with test suites
+- [x] 03-01-PLAN.md — Excel parser module (openpyxl) and VTEX enrichment service (httpx) with test suites
 - [ ] 03-02-PLAN.md — ImportPreviewDialog, ValidationReportDialog, and MainWindow integration
 
 ### Phase 4: Desktop Application
@@ -91,5 +91,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. CNAB Engine | 2/2 | Complete |  |
 | 2. Foundation | 2/2 | Complete   | 2026-03-30 |
-| 3. Data Pipeline | 0/2 | Not started | - |
+| 3. Data Pipeline | 1/2 | In Progress|  |
 | 4. Desktop Application | 0/2 | Not started | - |
